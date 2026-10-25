@@ -1,0 +1,29 @@
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  cask:
+    name: Audit & install
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Tap this checkout
+        run: brew tap desmondlee95700/tap "$GITHUB_WORKSPACE"
+
+      - name: Style
+        run: brew style --cask desmondlee95700/tap/aiusage
+
+      - name: Audit
+        run: brew audit --cask --online desmondlee95700/tap/aiusage
+
+      - name: Install & uninstall
+        run: |
+          brew install --cask desmondlee95700/tap/aiusage
+          test -d /Applications/AIUsage.app
+          brew uninstall --cask desmondlee95700/tap/aiusage
