@@ -14,7 +14,10 @@ jobs:
       - uses: actions/checkout@v7
 
       - name: Tap this checkout
-        run: brew tap desmondlee95700/tap "$GITHUB_WORKSPACE"
+        run: |
+          brew tap desmondlee95700/tap "$GITHUB_WORKSPACE"
+          # Homebrew 7+ only loads casks from trusted third-party taps
+          if brew commands | grep -qx trust; then brew trust desmondlee95700/tap; fi
 
       - name: Style
         run: brew style --cask desmondlee95700/tap/aiusage
