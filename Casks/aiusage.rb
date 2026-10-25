@@ -17,5 +17,10 @@ cask "aiusage" do
 
   app "AIUsage.app"
 
-  zap trash: "~/Library/Preferences/io.github.desmondlee95700.aiusage.plist"
+  uninstall quit: "io.github.desmondlee95700.aiusage"
+
+  zap trash: [
+    "~/Library/Preferences/com.antigravity.aiusage.plist",
+    "~/Library/Preferences/io.github.desmondlee95700.aiusage.plist",
+  ]
 end
